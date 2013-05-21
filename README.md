@@ -1,4 +1,4 @@
-Trip Calculato
+Trip Calculator
 
 Tricia
 Andrew
