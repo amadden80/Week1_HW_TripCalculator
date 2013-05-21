@@ -24,34 +24,56 @@ def adjustMilesPerGallon(milesPerGallon, speed)
 end
 
 
+def getUserInput
+  
+  print "Input ~ Distance: "
+  distance = forceAboveZero(gets.chomp.to_f)
 
-# Input
-print "Input ~ Distance: "
-distance = forceAboveZero(gets.chomp.to_f)
+  print "Input ~ Speed: "
+  speed = forceAboveZero(gets.chomp.to_f)
 
-print "Input ~ Speed: "
-speed = forceAboveZero(gets.chomp.to_f)
+  print "Input ~ Cost Per Gallon: "
+  costPerGallon = forceAboveZero(gets.chomp.to_f)
 
-print "Input ~ Cost Per Gallon: "
-costPerGallon = forceAboveZero(gets.chomp.to_f)
+  print "Input ~ Miles Per Gallon: "
+  milesPerGallon = forceAboveZero(gets.chomp.to_f)
 
-print "Input ~ Miles Per Gallon: "
-milesPerGallon = forceAboveZero(gets.chomp.to_f)
-milesPerGallon = adjustMilesPerGallon(milesPerGallon, speed)
+  return distance, speed, costPerGallon, milesPerGallon
 
-
-
-# Calcuate cost and hours of the trip
-cost = (costPerGallon / milesPerGallon) * distance
-hours = (distance / speed)
-
-# Output
-unless cost == Float::INFINITY
-  puts "Your trip will take #{hours.round(2)} hrs and cost $#{cost.round(2)}"
-else
-  puts "There is not enough money for this trip.  It would cost infinity dollars!"
 end
 
+
+def printOutput(cost, hours)
+  unless cost == Float::INFINITY
+    puts "Your trip will take #{hours.round(2)} hrs and cost $#{cost.round(2)}"
+  else
+    puts "There is not enough money for this trip.  It would cost infinity dollars!"
+  end
+end
+
+
+def calcCost(distance, speed, costPerGallon, milesPerGallon)
+  milesPerGallon = adjustMilesPerGallon(milesPerGallon, speed)
+  (costPerGallon / milesPerGallon) * distance
+end
+
+
+def calcHours(distance, speed)
+  distance / speed
+end
+
+
+
+
+# Get the users input
+distance, speed, costPerGallon, milesPerGallon = getUserInput
+
+# Calcuate cost and hours of the trip
+cost = calcCost(distance, speed, costPerGallon, milesPerGallon)
+hours = calcHours(distance, speed)
+
+# Pretty Output
+printOutput(cost, hours)
 
 
 
